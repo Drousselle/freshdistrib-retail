@@ -1,83 +1,93 @@
 {"products":[
   {
     "name":"Tomate",
-    "price":"0.50",
+    "price": 0.50,
     "quantity": {
-    "quantity":"100",
+    "quantity": 100,
     "unit": "g"
-  }
+  },
+    "slot": 1
   },
   {
     "name":"Salade",
-    "price":"3.00",
+    "price": 3.00,
     "quantity": {
-      "quantity":"400",
+      "quantity": 400 ,
       "unit": "g"
-    }
+    },
+    "slot": 2
   },
   {
     "name":"Lait",
-    "price":"2.00",
+    "price": 2.00 ,
     "quantity": {
-      "quantity":"500",
+      "quantity": 500 ,
       "unit": "ml"
-    }
+    },
+    "slot": 3
   },
   {
     "name":"Banana",
-    "price":"3.00",
+    "price": 3.00 ,
     "quantity": {
-      "quantity":"400",
+      "quantity": 400,
       "unit": "g"
-    }
+    },
+    "slot": 4
   },
   {
     "name":"Tomato",
-    "price":"2.00",
+    "price":2.00,
     "quantity": {
-      "quantity":"400",
+      "quantity":400,
       "unit": "g"
-    }
+    },
+    "slot": 5
   },
   {
     "name":"Fraise",
-    "price":"1.00",
+    "price":1.00,
     "quantity": {
-      "quantity":"100",
+      "quantity":100,
       "unit": "g"
-    }
+    },
+    "slot": 6
   },
   {
     "name":"Cerise",
-    "price":"1.00",
+    "price":1.00,
     "quantity": {
-      "quantity":"100",
+      "quantity":100,
       "unit": "g"
-    }
+    },
+    "slot": 7
   },
   {
     "name":"Pêche",
-    "price":"1.00",
+    "price":1.00,
     "quantity": {
-      "quantity":"100",
+      "quantity":100,
       "unit": "g"
-    }
+    },
+    "slot": 8
   },
   {
     "name":"Patate",
-    "price":"1.00",
+    "price":1.00,
     "quantity": {
-      "quantity":"100",
+      "quantity":100,
       "unit": "g"
-    }
+    },
+    "slot": 9
   },
   {
     "name":"Pomme",
-    "price":"1.00",
+    "price":1.00,
     "quantity": {
-      "quantity":"100",
+      "quantity":100,
       "unit": "g"
-    }
+    },
+    "slot": 10
   }
 ]
 }
