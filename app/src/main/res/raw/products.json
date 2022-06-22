@@ -1,10 +1,10 @@
-{"products":[
+[
   {
     "name":"Tomate",
     "price": 0.50,
     "quantity": {
-    "quantity": 100,
-    "unit": "g"
+      "first": 100,
+      "second": "g"
   },
     "slot": 1
   },
@@ -12,8 +12,8 @@
     "name":"Salade",
     "price": 3.00,
     "quantity": {
-      "quantity": 400 ,
-      "unit": "g"
+      "first": 400,
+      "second": "g"
     },
     "slot": 2
   },
@@ -21,8 +21,8 @@
     "name":"Lait",
     "price": 2.00 ,
     "quantity": {
-      "quantity": 500 ,
-      "unit": "ml"
+      "first": 500 ,
+      "second": "ml"
     },
     "slot": 3
   },
@@ -30,8 +30,8 @@
     "name":"Banana",
     "price": 3.00 ,
     "quantity": {
-      "quantity": 400,
-      "unit": "g"
+      "first": 400,
+      "second": "g"
     },
     "slot": 4
   },
@@ -39,8 +39,8 @@
     "name":"Tomato",
     "price":2.00,
     "quantity": {
-      "quantity":400,
-      "unit": "g"
+      "first":400,
+      "second": "g"
     },
     "slot": 5
   },
@@ -48,8 +48,8 @@
     "name":"Fraise",
     "price":1.00,
     "quantity": {
-      "quantity":100,
-      "unit": "g"
+      "first":100,
+      "second": "g"
     },
     "slot": 6
   },
@@ -57,8 +57,8 @@
     "name":"Cerise",
     "price":1.00,
     "quantity": {
-      "quantity":100,
-      "unit": "g"
+      "first":100,
+      "second": "g"
     },
     "slot": 7
   },
@@ -66,8 +66,8 @@
     "name":"Pêche",
     "price":1.00,
     "quantity": {
-      "quantity":100,
-      "unit": "g"
+      "first":100,
+      "second": "g"
     },
     "slot": 8
   },
@@ -75,8 +75,8 @@
     "name":"Patate",
     "price":1.00,
     "quantity": {
-      "quantity":100,
-      "unit": "g"
+      "first":100,
+      "second": "g"
     },
     "slot": 9
   },
@@ -84,10 +84,9 @@
     "name":"Pomme",
     "price":1.00,
     "quantity": {
-      "quantity":100,
-      "unit": "g"
+      "first":100,
+      "second": "g"
     },
     "slot": 10
   }
 ]
-}

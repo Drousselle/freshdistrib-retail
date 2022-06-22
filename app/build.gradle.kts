@@ -80,6 +80,9 @@ dependencies {
     implementation("androidx.compose.compiler:compiler:1.1.1")
     implementation("androidx.navigation:navigation-compose:2.5.0-beta01")
 
+    // Gson
+    implementation("com.google.code.gson:gson:2.9.0")
+
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
 

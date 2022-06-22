@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.poin.freshdistrib.data.model.Products
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import com.poin.freshdistrib.domain.viewmodel.UpdateProduct.INCREMENTATION
 
 class MainViewmodel : ViewModel() {
 
@@ -12,26 +11,47 @@ class MainViewmodel : ViewModel() {
     val listProducts: StateFlow<List<Products>>
         get() = _listProducts
 
+    private var _productsInCart = MutableStateFlow<List<Products>>(emptyList())
+    val productsInCart: StateFlow<List<Products>>
+        get() = _productsInCart
+
     fun setListProducts(products: List<Products>){
-        _listProducts.value = products.sortedBy { it.name }
+        _listProducts.value = products.sortedBy { it.slot }
     }
 
-    fun changeProductsQuantity(products: Products, updateProduct: UpdateProduct){
+    fun setProductsInCart(products: List<Products>){
+        _productsInCart.value = products.sortedBy { it.slot }
+    }
+
+    private fun deleteProductFromList(products: Products){
         val mutableListProducts = listProducts.value.toMutableList()
-        val update = if(updateProduct == INCREMENTATION) {
-            products.copy(quantity = Pair(products.quantity.first+1, products.quantity.second))
-        } else {
-            products.copy(quantity = Pair(products.quantity.first-1, products.quantity.second))
-        }
-        mutableListProducts[mutableListProducts.indexOf(products)] = update
+        mutableListProducts.remove(products)
         setListProducts(mutableListProducts.toList())
     }
 
+    fun addProductToCart(product: Products){
+        val mutableListProductsInCart = productsInCart.value.toMutableList()
+        mutableListProductsInCart.add(product)
+        setProductsInCart(mutableListProductsInCart.toList())
+        deleteProductFromList(product)
+    }
 
+    fun deleteCart(){
+        val mutableListProducts = listProducts.value.toMutableList()
+        val mutableListProductsInCart = productsInCart.value.toMutableList()
+        mutableListProducts.addAll(productsInCart.value)
+        mutableListProductsInCart.clear()
+        setListProducts(mutableListProducts.toList())
+        setProductsInCart(mutableListProductsInCart.toList())
+    }
 
-}
+    fun deleteSingleProductFromCart(product: Products){
+        val mutableListProducts = listProducts.value.toMutableList()
+        val mutableListProductsInCart = productsInCart.value.toMutableList()
+        mutableListProductsInCart.remove(product)
+        mutableListProducts.add(product)
+        setListProducts(mutableListProducts.toList())
+        setProductsInCart(mutableListProductsInCart.toList())
+    }
 
-enum class UpdateProduct {
-    INCREMENTATION,
-    DECREMENTATION
 }
