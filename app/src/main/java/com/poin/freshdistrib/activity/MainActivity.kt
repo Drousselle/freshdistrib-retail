@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.poin.freshdistrib.domain.usecases.GetProducts
 import com.poin.freshdistrib.domain.viewmodel.MainViewmodel
+import com.poin.freshdistrib.ui.layout.CartSheet
 import com.poin.freshdistrib.ui.layout.MainPage
 import com.poin.freshdistrib.ui.theme.FreshdistribTheme
 

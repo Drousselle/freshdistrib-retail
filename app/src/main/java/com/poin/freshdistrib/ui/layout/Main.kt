@@ -1,8 +1,5 @@
 package com.poin.freshdistrib.ui.layout
 
-import android.content.res.Resources
-import androidx.compose.compiler.plugins.kotlin.ComposeFqNames.remember
-import androidx.compose.compiler.plugins.kotlin.EmptyFunctionMetrics.name
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,18 +9,13 @@ import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.HorizontalAlignmentLine
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,12 +27,17 @@ import com.poin.freshdistrib.R
 import com.poin.freshdistrib.data.model.Products
 import com.poin.freshdistrib.domain.viewmodel.MainViewmodel
 import com.poin.freshdistrib.ui.theme.freshdistrib_green
-import com.poin.freshdistrib.ui.theme.freshdistrib_orange
 import com.poin.freshdistrib.ui.theme.freshdistrib_red
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainPage() {
+    CartSheet()
+
+}
+
+@Composable
+fun MainContent(){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -49,8 +46,6 @@ fun MainPage() {
     ) {
         FreshDistribLogo()
         Spacer(modifier = Modifier.padding(top = 20.dp))
-        HeaderText()
-        Spacer(modifier = Modifier.padding(top = 40.dp))
         ProductsList()
     }
 }
@@ -69,8 +64,15 @@ fun HeaderText() {
 @Composable
 fun ProductsList(viewmodel: MainViewmodel = viewModel()) {
     val products by viewmodel.listProducts.collectAsState()
-    val productsInCart by viewmodel.productsInCart.collectAsState()
-    LazyVerticalGrid(cells = GridCells.Adaptive(minSize = 150.dp)) {
+
+    if(products.isEmpty()){
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(text = stringResource(id = R.string.no_product), fontWeight = FontWeight.Bold, color = freshdistrib_red, textAlign = TextAlign.Center)
+        }
+    }
+    HeaderText()
+    Spacer(modifier = Modifier.padding(top = 40.dp))
+    LazyVerticalGrid(cells = GridCells.Adaptive(minSize = 150.dp), modifier = Modifier.padding(bottom = 60.dp)) {
         items(products) {
             ProductCard(it)
         }
@@ -79,27 +81,27 @@ fun ProductsList(viewmodel: MainViewmodel = viewModel()) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ProductCard(product: Products, viewmodel: MainViewmodel = viewModel()) {
+fun ProductCard(product: Products) {
     val paddingModifier = Modifier.padding(10.dp)
     Card(
         elevation = 10.dp,
-        modifier = paddingModifier,
-        onClick = { viewmodel.addProductToCart(product) }) {
+        modifier = paddingModifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
             CardTitle(product = product, modifier = paddingModifier.fillMaxWidth())
             CardImage(product = product)
-            Spacer(modifier = Modifier.padding(bottom = 20.dp))
+            Spacer(modifier = Modifier.padding(bottom = 10.dp))
             CardSlot(product = product)
-            Spacer(modifier = Modifier.padding(bottom = 20.dp))
+            Spacer(modifier = Modifier.padding(bottom = 10.dp))
             Row(modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)) {
+                .padding(start = 20.dp, end = 20.dp, bottom = 10.dp)) {
                     CardQuantity(product = product, Modifier.weight(1f))
                     CardPrice(product = product)
             }
+            AddToCartButton(product = product)
         }
     }
 }
@@ -116,6 +118,16 @@ fun CardImage(product: Products){
             .fillMaxWidth()
             .height(150.dp)
     )
+}
+
+@Composable
+fun AddToCartButton(product: Products, viewmodel: MainViewmodel = viewModel()){
+    Button(onClick = { viewmodel.addProductToCart(product) }, colors = ButtonDefaults.buttonColors(
+        freshdistrib_green), modifier = Modifier.padding(bottom = 10.dp),
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        Text(text = stringResource(id = R.string.add_to_cart), color = Color.White)
+    }
 }
 
 @Composable
