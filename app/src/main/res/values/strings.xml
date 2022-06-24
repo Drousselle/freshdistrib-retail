@@ -2,4 +2,7 @@
     <string name="app_name">freshdistrib</string>
     <string name="product_selection">Sélectionnez vos produits !</string>
     <string name="add_to_cart">Ajouter au panier</string>
+    <string name="open_cart">Panier</string>
+    <string name="validate">Valider</string>
+    <string name="no_product">Aucun produit actuellement dans ce distributeur, revenez plus tard</string>
 </resources>

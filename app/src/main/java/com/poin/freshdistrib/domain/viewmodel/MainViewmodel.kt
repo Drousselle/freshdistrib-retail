@@ -15,12 +15,21 @@ class MainViewmodel : ViewModel() {
     val productsInCart: StateFlow<List<Products>>
         get() = _productsInCart
 
+    private var _totalToPay = MutableStateFlow(0f)
+    val totalToPay: StateFlow<Float>
+        get() = _totalToPay
+
     fun setListProducts(products: List<Products>){
         _listProducts.value = products.sortedBy { it.slot }
     }
 
-    fun setProductsInCart(products: List<Products>){
+    private fun setTotalToPay(){
+        _totalToPay.value = productsInCart.value.sumOf { it.price }.toFloat()
+    }
+
+    private fun setProductsInCart(products: List<Products>){
         _productsInCart.value = products.sortedBy { it.slot }
+        setTotalToPay()
     }
 
     private fun deleteProductFromList(products: Products){
