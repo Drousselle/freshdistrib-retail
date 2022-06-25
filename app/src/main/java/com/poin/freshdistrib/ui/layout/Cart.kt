@@ -1,16 +1,12 @@
 package com.poin.freshdistrib.ui.layout
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,9 +25,7 @@ import com.poin.freshdistrib.data.model.Products
 import com.poin.freshdistrib.domain.viewmodel.MainViewmodel
 import com.poin.freshdistrib.domain.viewmodel.PaymentStatus
 import com.poin.freshdistrib.ui.theme.freshdistrib_green
-import com.poin.freshdistrib.ui.theme.freshdistrib_orange
 import com.poin.freshdistrib.ui.theme.freshdistrib_red
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -63,7 +57,7 @@ fun CartSheet() {
 @Composable
 private fun EmptyCart(){
     Box(modifier = Modifier.padding(15.dp)) {
-        Text(text = "Votre panier est vide", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(), fontWeight = FontWeight.Bold)
+        Text(text = stringResource(id = R.string.empty_cart), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(), fontWeight = FontWeight.Bold)
     }
 }
 

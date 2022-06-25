@@ -1,6 +1,5 @@
 package com.poin.freshdistrib.ui.layout
 
-import android.icu.text.CaseMap
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,7 +33,6 @@ import com.poin.freshdistrib.ui.theme.freshdistrib_red
 @Composable
 fun MainPage() {
     CartSheet()
-
 }
 
 @Composable
@@ -160,7 +158,7 @@ private fun CardSlot(product: Products){
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(4.dp)
-                .defaultMinSize(24.dp) //Use a min size for short text.
+                .defaultMinSize(24.dp)
         )
     }
 }

@@ -7,4 +7,5 @@
     <string name="no_product">Aucun produit actuellement dans ce distributeur, revenez plus tard</string>
     <string name="payment_error">Erreur lors du paiement, veuillez réessayer.</string>
     <string name="payment_success">Paiement reussi ! Vous pouvez récupérer vos produits.</string>
+    <string name="empty_cart">Votre panier est vide.</string>
 </resources>
