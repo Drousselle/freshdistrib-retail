@@ -1,0 +1,102 @@
+[
+  {
+    "name":"Tomate",
+    "price": 0.50,
+    "quantity": {
+      "first": 100,
+      "second": "g"
+  },
+    "slot": 1,
+    "image": "tomate"
+  },
+  {
+    "name":"Salade",
+    "price": 3.00,
+    "quantity": {
+      "first": 400,
+      "second": "g"
+    },
+    "slot": 2,
+    "image": "salade"
+  },
+  {
+    "name":"Lait",
+    "price": 2.00 ,
+    "quantity": {
+      "first": 500 ,
+      "second": "ml"
+    },
+    "slot": 3,
+    "image": "lait"
+  },
+  {
+    "name":"Banane",
+    "price": 3.00 ,
+    "quantity": {
+      "first": 400,
+      "second": "g"
+    },
+    "slot": 4,
+    "image": "banane"
+  },
+  {
+    "name":"Tomate",
+    "price":2.00,
+    "quantity": {
+      "first":400,
+      "second": "g"
+    },
+    "slot": 5,
+    "image": "tomate"
+  },
+  {
+    "name":"Fraise",
+    "price":1.00,
+    "quantity": {
+      "first":100,
+      "second": "g"
+    },
+    "slot": 6,
+    "image": "fraise"
+  },
+  {
+    "name":"Cerise",
+    "price":1.00,
+    "quantity": {
+      "first":100,
+      "second": "g"
+    },
+    "slot": 7,
+    "image": "cerise"
+  },
+  {
+    "name":"Pêche",
+    "price":1.00,
+    "quantity": {
+      "first":100,
+      "second": "g"
+    },
+    "slot": 8,
+    "image": "peche"
+  },
+  {
+    "name":"Patate",
+    "price":1.00,
+    "quantity": {
+      "first":100,
+      "second": "g"
+    },
+    "slot": 9,
+    "image": "patate"
+  },
+  {
+    "name":"Pomme",
+    "price":1.00,
+    "quantity": {
+      "first":100,
+      "second": "g"
+    },
+    "slot": 10,
+    "image": "pomme"
+  }
+]
