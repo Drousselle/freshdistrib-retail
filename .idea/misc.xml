@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/compose-model-1655842352439.xml" value="0.21481481481481482" />
+        <entry key="app/src/main/res/drawable/ic_error.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_minus.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_valid.xml" value="0.1" />
       </map>
     </option>
   </component>

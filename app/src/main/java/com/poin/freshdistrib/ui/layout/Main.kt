@@ -1,5 +1,6 @@
 package com.poin.freshdistrib.ui.layout
 
+import android.icu.text.CaseMap
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -51,18 +52,18 @@ fun MainContent(){
 }
 
 @Composable
-fun FreshDistribLogo(){
+private fun FreshDistribLogo(){
     Image(painterResource(R.drawable.freshdistriblogo),"company logo", modifier = Modifier.width(200.dp), alignment = Alignment.Center)
 }
 
 @Composable
-fun HeaderText() {
+private fun HeaderText() {
     Text(text = stringResource(id = R.string.product_selection), fontWeight = FontWeight.Bold)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProductsList(viewmodel: MainViewmodel = viewModel()) {
+private fun ProductsList(viewmodel: MainViewmodel = viewModel()) {
     val products by viewmodel.listProducts.collectAsState()
 
     if(products.isEmpty()){
@@ -74,40 +75,47 @@ fun ProductsList(viewmodel: MainViewmodel = viewModel()) {
     Spacer(modifier = Modifier.padding(top = 40.dp))
     LazyVerticalGrid(cells = GridCells.Adaptive(minSize = 150.dp), modifier = Modifier.padding(bottom = 60.dp)) {
         items(products) {
-            ProductCard(it)
+            CustomCard() {
+                CardContent(product = it)
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ProductCard(product: Products) {
+fun CustomCard(content: @Composable ColumnScope.() -> Unit) {
     val paddingModifier = Modifier.padding(10.dp)
     Card(
         elevation = 10.dp,
         modifier = paddingModifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            CardTitle(product = product, modifier = paddingModifier.fillMaxWidth())
-            CardImage(product = product)
-            Spacer(modifier = Modifier.padding(bottom = 10.dp))
-            CardSlot(product = product)
-            Spacer(modifier = Modifier.padding(bottom = 10.dp))
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp, bottom = 10.dp)) {
-                    CardQuantity(product = product, Modifier.weight(1f))
-                    CardPrice(product = product)
-            }
-            AddToCartButton(product = product)
-        }
+            modifier = Modifier.fillMaxWidth(),
+            content = content
+        )
     }
 }
 
 @Composable
-fun CardImage(product: Products){
+private fun CardContent(product: Products){
+    val paddingModifier = Modifier.padding(10.dp)
+    CardHeader(modifier = paddingModifier.fillMaxWidth(), title = product.name)
+    CardImage(product = product)
+    Spacer(modifier = Modifier.padding(bottom = 10.dp))
+    CardSlot(product = product)
+    Spacer(modifier = Modifier.padding(bottom = 10.dp))
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 20.dp, end = 20.dp, bottom = 10.dp)) {
+        CardQuantity(product = product, Modifier.weight(1f))
+        CardPrice(product = product)
+    }
+    AddToCartButton(product = product)
+}
+
+@Composable
+private fun CardImage(product: Products){
     val context = LocalContext.current
     val image = context.resources.getIdentifier(product.image, "drawable", context.packageName);
     Image(
@@ -121,7 +129,7 @@ fun CardImage(product: Products){
 }
 
 @Composable
-fun AddToCartButton(product: Products, viewmodel: MainViewmodel = viewModel()){
+private fun AddToCartButton(product: Products, viewmodel: MainViewmodel = viewModel()){
     Button(onClick = { viewmodel.addProductToCart(product) }, colors = ButtonDefaults.buttonColors(
         freshdistrib_green), modifier = Modifier.padding(bottom = 10.dp),
         shape = RoundedCornerShape(8.dp),
@@ -131,14 +139,14 @@ fun AddToCartButton(product: Products, viewmodel: MainViewmodel = viewModel()){
 }
 
 @Composable
-fun CardTitle(product: Products, modifier: Modifier) {
+fun CardHeader(modifier: Modifier, title: String) {
     Box(Modifier.background(freshdistrib_green)){
-        Text(text = product.name, modifier = modifier, textAlign = TextAlign.Center,fontWeight = FontWeight.Bold, color = Color.White)
+        Text(text = title, modifier = modifier, textAlign = TextAlign.Center,fontWeight = FontWeight.Bold, color = Color.White)
     }
 }
 
 @Composable
-fun CardSlot(product: Products){
+private fun CardSlot(product: Products){
     Box(contentAlignment= Alignment.Center,
         modifier = Modifier
             .background(Color.White, shape = CircleShape)
@@ -153,17 +161,16 @@ fun CardSlot(product: Products){
             modifier = Modifier
                 .padding(4.dp)
                 .defaultMinSize(24.dp) //Use a min size for short text.
-
         )
     }
 }
 
 @Composable
-fun CardPrice(product: Products){
+private fun CardPrice(product: Products){
     Text(text = "${product.price}€", textAlign = TextAlign.End, fontWeight = FontWeight.Bold, color = freshdistrib_red)
 }
 
 @Composable
-fun CardQuantity(product: Products, modifier: Modifier){
+private fun CardQuantity(product: Products, modifier: Modifier){
     Text(text = "${product.quantity.first} ${product.quantity.second}", modifier = modifier, fontWeight = FontWeight.Bold)
 }

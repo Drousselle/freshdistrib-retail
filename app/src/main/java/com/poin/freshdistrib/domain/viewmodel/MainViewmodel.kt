@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.poin.freshdistrib.data.model.Products
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import com.poin.freshdistrib.domain.viewmodel.PaymentStatus.LOADING
 
 class MainViewmodel : ViewModel() {
 
@@ -15,9 +16,21 @@ class MainViewmodel : ViewModel() {
     val productsInCart: StateFlow<List<Products>>
         get() = _productsInCart
 
+    private var _showDialog = MutableStateFlow(false)
+    val showDialog: StateFlow<Boolean>
+        get() = _showDialog
+
     private var _totalToPay = MutableStateFlow(0f)
     val totalToPay: StateFlow<Float>
         get() = _totalToPay
+
+    private var _paymentStatus = MutableStateFlow(LOADING)
+    val paymentStatus: StateFlow<PaymentStatus>
+        get() = _paymentStatus
+
+    fun setPaymentStatus(status: PaymentStatus){
+        _paymentStatus.value = status
+    }
 
     fun setListProducts(products: List<Products>){
         _listProducts.value = products.sortedBy { it.slot }
@@ -30,6 +43,10 @@ class MainViewmodel : ViewModel() {
     private fun setProductsInCart(products: List<Products>){
         _productsInCart.value = products.sortedBy { it.slot }
         setTotalToPay()
+    }
+
+    fun setShowDialog(bool: Boolean){
+        _showDialog.value = bool
     }
 
     private fun deleteProductFromList(products: Products){
@@ -63,4 +80,10 @@ class MainViewmodel : ViewModel() {
         setProductsInCart(mutableListProductsInCart.toList())
     }
 
+}
+
+enum class PaymentStatus {
+    LOADING,
+    SUCCESS,
+    ERROR
 }
