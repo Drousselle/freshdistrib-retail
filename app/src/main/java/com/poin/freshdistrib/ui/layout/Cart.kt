@@ -11,10 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.poin.freshdistrib.R
 import com.poin.freshdistrib.data.model.Products
 import com.poin.freshdistrib.domain.viewmodel.MainViewmodel
+import com.poin.freshdistrib.domain.viewmodel.PaymentStatus
 import com.poin.freshdistrib.ui.theme.freshdistrib_green
 import com.poin.freshdistrib.ui.theme.freshdistrib_orange
 import com.poin.freshdistrib.ui.theme.freshdistrib_red
@@ -63,14 +61,14 @@ fun CartSheet() {
 }
 
 @Composable
-fun EmptyCart(){
+private fun EmptyCart(){
     Box(modifier = Modifier.padding(15.dp)) {
         Text(text = "Votre panier est vide", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(), fontWeight = FontWeight.Bold)
     }
 }
 
 @Composable
-fun ListProducts(viewModel: MainViewmodel = viewModel()){
+private fun ListProducts(viewModel: MainViewmodel = viewModel()){
     val products by viewModel.productsInCart.collectAsState()
     if(products.isEmpty()){
         EmptyCart()
@@ -84,7 +82,7 @@ fun ListProducts(viewModel: MainViewmodel = viewModel()){
 }
 
 @Composable
-fun ProductInCart(product: Products, viewModel: MainViewmodel = viewModel()){
+private fun ProductInCart(product: Products, viewModel: MainViewmodel = viewModel()){
     val context = LocalContext.current
     val image = context.resources.getIdentifier(product.image, "drawable", context.packageName);
     Row(modifier = Modifier
@@ -99,7 +97,7 @@ fun ProductInCart(product: Products, viewModel: MainViewmodel = viewModel()){
                 modifier = Modifier
                     .width(40.dp)
                     .height(40.dp)
-                    .clip(CircleShape)                       // clip to the circle shape
+                    .clip(CircleShape)
                 ,
             )
         }
@@ -122,7 +120,7 @@ fun ProductInCart(product: Products, viewModel: MainViewmodel = viewModel()){
 }
 
 @Composable
-fun TotalToPay(viewModel: MainViewmodel = viewModel()) {
+private fun TotalToPay(viewModel: MainViewmodel = viewModel()) {
     val total by viewModel.totalToPay.collectAsState()
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
         Text(text = "Total : $total €", color = freshdistrib_red, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
@@ -130,16 +128,23 @@ fun TotalToPay(viewModel: MainViewmodel = viewModel()) {
 }
 
 @Composable
-fun ValidateCart(){
+private fun ValidateCart(viewModel: MainViewmodel = viewModel()){
+    val showDialog by viewModel.showDialog.collectAsState()
+    if (showDialog) {
+        PaymentDialog()
+    }
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-        Button(onClick = {  }, colors = ButtonDefaults.buttonColors(
+        Button(onClick = {
+            viewModel.setShowDialog(true)
+            viewModel.setPaymentStatus(PaymentStatus.LOADING)
+                         },
+            colors = ButtonDefaults.buttonColors(
             freshdistrib_green), modifier = Modifier.padding(bottom = 10.dp),
             shape = RoundedCornerShape(8.dp),
         ) {
             Text(text = stringResource(id = R.string.validate), color = Color.White)
         }
     }
-
 }
 
 
